@@ -165,7 +165,7 @@ export interface FirmState {
 
 export const firmState: FirmState = {
   // SYNC:BEGIN lastUpdated
-  lastUpdated: '2026-04-19',
+  lastUpdated: '2026-04-19 — 5:58 PM EDT',
   // SYNC:END
   // SYNC:BEGIN phase
   phase: 'Phase 1g — P1G-CIO-01 OPEN',
