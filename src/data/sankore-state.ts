@@ -171,7 +171,7 @@ export const firmState: FirmState = {
   phase: 'Phase 1g — P1G-RSK-01 OPEN',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
-  nextMilestone: 'None',
+  nextMilestone: 'P1G-RSK-01 (Risk Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`)',
   // SYNC:END
 
   mvpFoundation: {
@@ -275,7 +275,7 @@ export const firmState: FirmState = {
         id: 'P1G-RSK-01',
         dept: 'Risk & Performance',
         title: 'Risk Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
-        status: 'stub',
+        status: 'open',
         owner: 'TBD',
         summary: 'Risk Dept Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
       },
@@ -346,6 +346,7 @@ export const firmState: FirmState = {
     { id: 10, tier: 'T3', name: 'DEPLOYMENT-RUNBOOK', purpose: 'Local dev + future Mac Studio SSH daemon setup', audience: 'Sekou', status: 'pending', home: 'docs/ops/' },
     { id: 11, tier: 'T3', name: 'OT-216-DIAGNOSTIC', purpose: 'Side fix for Marcus\'s fresh-Claude-Code-session auth errors. Parallel to planning; not a v2 blocker.', audience: 'Sekou', status: 'pending', home: 'docs/ops/' },
     { id: 12, tier: 'T3', name: 'SECURITY-BASELINE', purpose: 'Secrets handling, RLS policy, audit surface, least-privilege principles for v2', audience: 'Safiya, Kito', status: 'pending', home: 'docs/specs/' },
+    { id: 13, tier: 'TK', name: 'FIRM-TODO.md', purpose: 'Canonical task list. Replaces memory for task state.', audience: 'All + CEO', status: 'pending' },
   ],
   // SYNC:END
 
