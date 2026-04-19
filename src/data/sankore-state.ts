@@ -127,7 +127,7 @@ export const firmState: FirmState = {
   phase: 'LIVE — MVP-Foundation CP1–4 CLOSED',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
-  nextMilestone: 'P1G-ENG-01 (Engineering dept deep-dive)',
+  nextMilestone: 'None',
   // SYNC:END
 
   mvpFoundation: {
@@ -193,7 +193,7 @@ export const firmState: FirmState = {
         id: 'P1G-ENG-01',
         dept: 'Engineering',
         title: 'Engineering dept deep-dive',
-        status: 'queued',
+        status: 'stub',
         owner: 'Osei (leads) + Sekou (engages at this sprint)',
         summary: '---',
       },
