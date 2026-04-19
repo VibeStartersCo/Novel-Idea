@@ -193,8 +193,9 @@ export const firmState: FirmState = {
         id: 'P1G-ENG-01',
         dept: 'Engineering',
         title: 'Engineering dept deep-dive',
-        status: 'stub',
+        status: 'closed-passed',
         owner: 'Osei (leads) + Sekou (engages at this sprint)',
+        closeDate: '2026-04-19',
         summary: '---',
       },
       {
