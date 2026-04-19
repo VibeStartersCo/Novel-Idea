@@ -168,10 +168,10 @@ export const firmState: FirmState = {
   lastUpdated: '2026-04-19',
   // SYNC:END
   // SYNC:BEGIN phase
-  phase: 'Phase 1g — P1G-RSK-01 OPEN',
+  phase: 'Phase 1g — P1G-CIO-01 OPEN',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
-  nextMilestone: 'P1G-RSK-01 (Risk Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`)',
+  nextMilestone: 'P1G-CIO-01 (Roundtable Charter + decision-ceremony primitive from `TradingAgents` + `ATLAS` + `virattt`)',
   // SYNC:END
 
   mvpFoundation: {
@@ -274,16 +274,17 @@ export const firmState: FirmState = {
       {
         id: 'P1G-RSK-01',
         dept: 'Risk & Performance',
-        title: 'Risk Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
-        status: 'open',
+        title: 'Risk & Performance dept deep-dive',
+        status: 'closed-passed',
         owner: 'TBD',
+        closeDate: '2026-04-19',
         summary: 'Risk Dept Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
       },
       {
         id: 'P1G-CIO-01',
         dept: 'CIO Roundtable',
         title: 'Roundtable Charter + decision-ceremony primitive from `TradingAgents` + `ATLAS` + `virattt`',
-        status: 'stub',
+        status: 'open',
         owner: 'TBD',
         summary: 'Roundtable Charter + decision-ceremony primitive from `TradingAgents` + `ATLAS` + `virattt`',
       },
@@ -365,13 +366,6 @@ export const firmState: FirmState = {
       resolvesIn: '`OT-216-DIAGNOSTIC` (T3 artifact #11)',
       owner: 'Sekou',
       blocks: 'nothing — parallel side-fix, not blocking `P1G-FORK-01`',
-    },
-    {
-      id: 4,
-      title: 'Safiya expansion timing',
-      resolvesIn: '`PRJ-CHARTER` + `P1G-RSK-01`',
-      owner: 'Marcus + Safiya',
-      blocks: 'Risk dept charter §12 wiring sub-spec',
     },
     {
       id: 5,
@@ -508,6 +502,12 @@ export const firmState: FirmState = {
       resolution: '*Resolved 2026-04-18 — 11:16 PM EDT (P1G-AUD-01 Block 2 design):* TIER-MATRIX designed in `docs/plan/dept-scan/aud-01-com-01-block2-design.md §1` — T0-T4 × decision/capital/asset-class/process; DEFCON ORANGE caps T2; RED freezes T0; code shape `tier_matrix.py` lookup + `enforce_tier_authority()` dec',
       date: '',
     },
+    {
+      id: 'R11',
+      title: 'Safiya expansion timing',
+      resolution: '*Resolved 2026-04-19 — 5:39 PM EDT (P1G-RSK-01 Block 2 §5 + charter §3); amended 2026-04-19 — 5:45 PM EDT per CEO directive on full-dept onboarding (`feedback_full_dept_onboarding.md`):* **Phase 2A activation = full 6-agent roster simultaneously** (Safiya + JRP-01 + JRP-02 + Yar + JF-01 + JF-02). No',
+      date: '',
+    },
   ],
   // SYNC:END
 
@@ -626,8 +626,8 @@ export const firmState: FirmState = {
   governanceCounts: {
     constraintsLocked: 23,
     decisionsLocked: 15,
-    openQuestionsTotal: 14,
-    resolvedQuestionsTotal: 10,
+    openQuestionsTotal: 13,
+    resolvedQuestionsTotal: 11,
   },
   // SYNC:END
 
@@ -654,6 +654,12 @@ export const firmState: FirmState = {
       block2: { openedAt: '', closedAt: '2026-04-19 — 2:45 AM EDT', file: 'res-01-block2-design.md' },
       block3: { openedAt: '2026-04-19 — 2:50 AM EDT', closedAt: '2026-04-19 — 2:54 AM EDT', file: 'res-01-charter.md' },
     },
+    'P1G-RSK-01': {
+      block0: { openedAt: '2026-04-19 — 5:17 PM EDT', closedAt: '2026-04-19 — 5:23 PM EDT', file: 'foundation-01-synthesis-rsk-touchpoints.md' },
+      block1: { openedAt: '2026-04-19 — 5:30 PM EDT', closedAt: '2026-04-19 — 5:33 PM EDT', file: 'rsk-01-port-synthesis.md' },
+      block2: { openedAt: '2026-04-19 — 5:34 PM EDT', closedAt: '2026-04-19 — 5:36 PM EDT', file: 'rsk-01-block2-design.md' },
+      block3: { openedAt: '2026-04-19 — 5:37 PM EDT', closedAt: '2026-04-19 — 5:39 PM EDT', file: 'rsk-01-charter.md' },
+    },
     'P1G-SCAN-01': {
       block0: { openedAt: '', closedAt: '2026-04-18 — 10:52 PM EDT', file: 'foundation-01-synthesis.md' },
     },
@@ -674,7 +680,7 @@ export const firmState: FirmState = {
 
   // SYNC:BEGIN patternCatalog
   patternCatalog: {
-    total: 15,
+    total: 18,
     nominations: [
       { id: 1, title: 'Janus-shape softmax weighting (cohort-based meta-weighting)', sourceSprint: 'P1G-AUD-01', status: 'cataloged' },
       { id: 2, title: 'SCHEMA-GATE dual-clearance pre-commit pattern', sourceSprint: 'P1G-AUD-01', status: 'cataloged' },
@@ -691,6 +697,9 @@ export const firmState: FirmState = {
       { id: 14, title: 'Dangerous-flag + error-category envelope on destructive ops', sourceSprint: 'P1G-TRD-01', status: 'nominated' },
       { id: 15, title: 'Halt-wins asymmetric authority via co-located Risk-Pool gate in execution orchestrator', sourceSprint: 'P1G-TRD-01', status: 'nominated' },
       { id: 16, title: 'Paper/live dual-mode at command-shape level (surface split)', sourceSprint: 'P1G-TRD-01', status: 'nominated' },
+      { id: 17, title: 'DEFCON × F5 × halt-flag composite runtime gate with ordering semantics', sourceSprint: 'P1G-RSK-01', status: 'cataloged' },
+      { id: 18, title: 'Bootstrap-significance advancement gate (lab→shadow→prod stage-gating)', sourceSprint: 'P1G-RSK-01', status: 'cataloged' },
+      { id: 19, title: 'Correlation-spike conservative-prior policy (stress-correlation floor by regime)', sourceSprint: 'P1G-RSK-01', status: 'cataloged' },
     ],
   },
   // SYNC:END
@@ -699,8 +708,8 @@ export const firmState: FirmState = {
   modelVersions: {
     currentCeiling: 'claude-opus-4-7 (1M context)',
     landedDate: '2026-04-19',
-    priorCeilingRefs: 23,
-    lagNote: 'Canon references claude-opus-4-6 in 23 locations across dept-scan/; ceiling is claude-opus-4-7 — 1-release lag. Re-baseline tracked in open-Q #16.',
+    priorCeilingRefs: 29,
+    lagNote: 'Canon references claude-opus-4-6 in 29 locations across dept-scan/; ceiling is claude-opus-4-7 — 1-release lag. Re-baseline tracked in open-Q #16.',
   },
   // SYNC:END
 };
