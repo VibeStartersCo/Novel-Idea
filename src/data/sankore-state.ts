@@ -121,7 +121,7 @@ export interface FirmState {
 
 export const firmState: FirmState = {
   // SYNC:BEGIN lastUpdated
-  lastUpdated: '2026-04-18',
+  lastUpdated: '2026-04-19',
   // SYNC:END
   // SYNC:BEGIN phase
   phase: 'LIVE — MVP-Foundation CP1–4 CLOSED',
@@ -201,8 +201,9 @@ export const firmState: FirmState = {
         id: 'P1G-AUD-01',
         dept: 'Audit',
         title: 'hook note',
-        status: 'stub',
+        status: 'closed-passed',
         owner: 'TBD',
+        closeDate: '2026-04-19',
         summary: 'Audit dept deep-dive will spec the **doc-home orphan-audit cadence**:',
       },
       {
@@ -249,8 +250,9 @@ export const firmState: FirmState = {
         id: 'P1G-COM-01',
         dept: 'Compliance & Legal',
         title: 'Compliance Charter (Nkechi) + SEC readiness + F18 external-regulatory enforcement',
-        status: 'stub',
+        status: 'closed-passed',
         owner: 'TBD',
+        closeDate: '2026-04-19',
         summary: 'Compliance Charter (Nkechi) + SEC readiness + F18 external-regulatory enforcement',
       },
       {
@@ -359,8 +361,8 @@ export const firmState: FirmState = {
   governanceCounts: {
     constraintsLocked: 23,
     decisionsLocked: 15,
-    openQuestionsTotal: 11,
-    resolvedQuestionsTotal: 9,
+    openQuestionsTotal: 13,
+    resolvedQuestionsTotal: 10,
   },
   // SYNC:END
 };
