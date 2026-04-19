@@ -359,7 +359,7 @@ export const firmState: FirmState = {
   governanceCounts: {
     constraintsLocked: 23,
     decisionsLocked: 15,
-    openQuestionsTotal: 10,
+    openQuestionsTotal: 11,
     resolvedQuestionsTotal: 9,
   },
   // SYNC:END
