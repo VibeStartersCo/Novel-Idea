@@ -124,10 +124,10 @@ export const firmState: FirmState = {
   lastUpdated: '2026-04-19',
   // SYNC:END
   // SYNC:BEGIN phase
-  phase: 'Phase 1g — P1G-TRD-01 OPEN',
+  phase: 'Phase 1g — P1G-RSK-01 OPEN',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
-  nextMilestone: 'P1G-TRD-01 (Trading Desk dept deep-dive)',
+  nextMilestone: 'None',
   // SYNC:END
 
   mvpFoundation: {
@@ -220,8 +220,9 @@ export const firmState: FirmState = {
         id: 'P1G-TRD-01',
         dept: 'Trading Desk',
         title: 'Trading Desk dept deep-dive',
-        status: 'open',
+        status: 'closed-passed',
         owner: 'TBD',
+        closeDate: '2026-04-19',
         summary: 'Trading Dept Charter + execution-adapter selection from `Kraken CLI` + `Open-Finance/AgenticTrading`',
       },
       {
@@ -363,7 +364,7 @@ export const firmState: FirmState = {
   governanceCounts: {
     constraintsLocked: 23,
     decisionsLocked: 15,
-    openQuestionsTotal: 13,
+    openQuestionsTotal: 14,
     resolvedQuestionsTotal: 10,
   },
   // SYNC:END
