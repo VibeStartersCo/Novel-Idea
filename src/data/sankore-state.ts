@@ -124,7 +124,7 @@ export const firmState: FirmState = {
   lastUpdated: '2026-04-18',
   // SYNC:END
   // SYNC:BEGIN phase
-  phase: 'Phase 1g — P1G-SCAN-01 in progress (9/9 readouts filed)',
+  phase: 'LIVE — MVP-Foundation CP1–4 CLOSED + CEO-signed 2026-04-18',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
   nextMilestone: 'P1G-SCAN-01 (8-department structural scan)',
