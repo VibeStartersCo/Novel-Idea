@@ -1,9 +1,19 @@
 /**
  * Sankore v2 — firm state snapshot for Mission Control.
  *
- * HAND-CURATED: reflects planning-doc state as of lastUpdated.
  * Source of truth: ~/Desktop/AI Coding/Business/The Sankore Group/docs/plan/*.md
- * Refresh cadence: update manually at each CEO exit-gate or session debrief.
+ *
+ * AUTO-SYNCED fields (bracketed by SYNC:BEGIN / SYNC:END markers):
+ *   - lastUpdated, phase, nextMilestone
+ *   - phase1g.sprints
+ *   - governanceCounts
+ * Updated by scripts/sync_dashboard.py (Sankore repo) via post-commit hook.
+ * Do NOT hand-edit inside SYNC:BEGIN / SYNC:END blocks — changes get overwritten.
+ *
+ * HAND-CURATED fields (outside SYNC markers):
+ *   - mvpFoundation.checkpoints, artifacts, openQuestions, resolvedQuestions,
+ *     decisions, agentRoster — refreshed at CEO exit-gates / session debriefs.
+ *
  * Future: wire to Supabase (agents table, activity_log) — Phase 2A work.
  */
 
@@ -110,9 +120,15 @@ export interface FirmState {
 }
 
 export const firmState: FirmState = {
+  // SYNC:BEGIN lastUpdated
   lastUpdated: '2026-04-18',
-  phase: 'MVP-Foundation closed → Phase 1g opening',
-  nextMilestone: 'P1G-ENG-01 (Engineering dept deep-dive + substrate head-to-head)',
+  // SYNC:END
+  // SYNC:BEGIN phase
+  phase: 'Phase 1g — P1G-SCAN-01 in progress (4/9 readouts filed)',
+  // SYNC:END
+  // SYNC:BEGIN nextMilestone
+  nextMilestone: 'P1G-SCAN-01 (8-department structural scan)',
+  // SYNC:END
 
   mvpFoundation: {
     targetDate: '2026-04-20',
@@ -153,87 +169,104 @@ export const firmState: FirmState = {
   phase1g: {
     windowOpens: '2026-04-20',
     windowCloses: '2026-05-01',
+    // SYNC:BEGIN sprints
     sprints: [
       {
         id: 'P1G-FORK-01',
         dept: 'Infrastructure',
-        title: 'Fork infrastructure (9-repo corpus + v2 firm repo)',
+        title: 'Fork infrastructure',
         status: 'closed-passed',
-        owner: 'Sekou + Osei',
+        owner: 'Sekou (executes) + Osei (verifies)',
         closeDate: '2026-04-17',
-        summary: '9 primary-corpus repos forked to VibeStartersCo + cloned + upstream-tracked. Sankore-v2 repo created (push pending).',
+        summary: 'Acceptance criteria scoring:',
+      },
+      {
+        id: 'P1G-SCAN-01',
+        dept: 'Cross-dept (scan)',
+        title: '8-department structural scan',
+        status: 'open',
+        owner: 'Marcus (CEO, strategic) + Osei (Claude, structural coherence) — joint 1–2 session review',
+        summary: 'Inserted 2026-04-18 per CEO direction: before any Phase 1g dept deep-dive launches, run a cross-dept scan so each charter is written with inter-dept context, not in isolation. Pre-work already done: all 9 v1 dept-head...',
       },
       {
         id: 'P1G-ENG-01',
         dept: 'Engineering',
-        title: 'Engineering dept charter + substrate head-to-head',
+        title: 'Engineering dept deep-dive',
         status: 'queued',
-        owner: 'Osei + Sekou',
-        summary: '13-section charter + Paperclip vs ClawTeams vs OpenAlice head-to-head + doc-home registry design.',
-      },
-      {
-        id: 'P1G-RES-01',
-        dept: 'Research',
-        title: 'Research dept charter + 18-persona extraction',
-        status: 'stub',
-        owner: 'TBD',
-        summary: '18-persona pattern extraction from virattt/ai-hedge-fund + TradingAgents.',
-      },
-      {
-        id: 'P1G-TRD-01',
-        dept: 'Trading Desk',
-        title: 'Trading dept charter + execution-adapter selection',
-        status: 'stub',
-        owner: 'TBD',
-        summary: 'Execution adapter from Kraken CLI + Open-Finance/AgenticTrading.',
-      },
-      {
-        id: 'P1G-RSK-01',
-        dept: 'Risk & Performance',
-        title: 'Risk dept charter + position-sizing backtest scaffold',
-        status: 'stub',
-        owner: 'Safiya',
-        summary: 'Scaffold from FinGPT + ATLAS. Safiya-solo → expand later (Q#4).',
-      },
-      {
-        id: 'P1G-CIO-01',
-        dept: 'CIO Roundtable',
-        title: 'Roundtable charter + decision-ceremony primitive',
-        status: 'stub',
-        owner: 'TBD',
-        summary: 'Decision-ceremony from TradingAgents + ATLAS + virattt.',
-      },
-      {
-        id: 'P1G-CST-01',
-        dept: 'C-Suite + PAs',
-        title: 'C-Suite + PA charter + personnel-file shape',
-        status: 'stub',
-        owner: 'TBD',
-        summary: 'Personnel-file shape from OpenAlice + Paperclip + ClawTeams.',
+        owner: 'Osei (leads) + Sekou (engages at this sprint)',
+        summary: '---',
       },
       {
         id: 'P1G-AUD-01',
         dept: 'Audit',
-        title: 'Audit dept charter + doc-home orphan-audit cadence',
+        title: 'hook note',
         status: 'stub',
-        owner: 'Kito',
-        summary: 'Monthly full-tree diff cadence + SGD-028 on-demand trigger.',
+        owner: 'TBD',
+        summary: 'Audit dept deep-dive will spec the **doc-home orphan-audit cadence**:',
+      },
+      {
+        id: 'P1G-RES-01',
+        dept: 'Research',
+        title: 'Research Dept Charter + 18-persona pattern extraction from `virattt/ai-hedge-fund` + `TradingAgents`',
+        status: 'stub',
+        owner: 'TBD',
+        summary: 'Research Dept Charter + 18-persona pattern extraction from `virattt/ai-hedge-fund` + `TradingAgents`',
+      },
+      {
+        id: 'P1G-TRD-01',
+        dept: 'Trading Desk',
+        title: 'Trading Dept Charter + execution-adapter selection from `Kraken CLI` + `Open-Finance/AgenticTrading`',
+        status: 'stub',
+        owner: 'TBD',
+        summary: 'Trading Dept Charter + execution-adapter selection from `Kraken CLI` + `Open-Finance/AgenticTrading`',
+      },
+      {
+        id: 'P1G-RSK-01',
+        dept: 'Risk & Performance',
+        title: 'Risk Dept Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
+        status: 'stub',
+        owner: 'TBD',
+        summary: 'Risk Dept Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
+      },
+      {
+        id: 'P1G-CIO-01',
+        dept: 'CIO Roundtable',
+        title: 'Roundtable Charter + decision-ceremony primitive from `TradingAgents` + `ATLAS` + `virattt`',
+        status: 'stub',
+        owner: 'TBD',
+        summary: 'Roundtable Charter + decision-ceremony primitive from `TradingAgents` + `ATLAS` + `virattt`',
+      },
+      {
+        id: 'P1G-CST-01',
+        dept: 'C-Suite + PAs',
+        title: 'C-Suite + PA Charter + personnel-file shape from `OpenAlice` + `Paperclip` + `ClawTeams`',
+        status: 'stub',
+        owner: 'TBD',
+        summary: 'C-Suite + PA Charter + personnel-file shape from `OpenAlice` + `Paperclip` + `ClawTeams`',
+      },
+      {
+        id: 'P1G-COM-01',
+        dept: 'Compliance & Legal',
+        title: 'Compliance Charter (Nkechi) + SEC readiness + F18 external-regulatory enforcement',
+        status: 'stub',
+        owner: 'TBD',
+        summary: 'Compliance Charter (Nkechi) + SEC readiness + F18 external-regulatory enforcement',
       },
       {
         id: 'P1G-OPR-01',
         dept: 'Ops + R&D',
-        title: 'Paired Ops + R&D charter + cost-governor spec',
+        title: 'Paired Ops + R&D Charter + cost-governor spec from `ATLAS` + `ClawTeams`',
         status: 'stub',
         owner: 'TBD',
-        summary: 'Cost-governor spec from ATLAS + ClawTeams.',
+        summary: 'Paired Ops + R&D Charter + cost-governor spec from `ATLAS` + `ClawTeams`',
       },
       {
         id: 'P1G-SYN-01',
         dept: 'Synthesis',
-        title: 'Synthesis — Mental Model v2 + pattern catalog + substrate ratification',
+        title: 'Mental Model v2 + `PATTERN-CATALOG.md` + substrate ratification',
         status: 'stub',
-        owner: 'Osei',
-        summary: 'Final Phase 1g synthesis. Unblocks MVP-Build.',
+        owner: 'TBD',
+        summary: 'Mental Model v2 + `PATTERN-CATALOG.md` + substrate ratification',
       },
       {
         id: 'P1G-TIER-BC-REVIEW-01',
@@ -244,6 +277,7 @@ export const firmState: FirmState = {
         summary: 'Runs only if Tier-A corpus surfaces an unanswered pattern. Trigger criterion = Q#8.',
       },
     ],
+    // SYNC:END
   },
 
   artifacts: [
@@ -320,10 +354,12 @@ export const firmState: FirmState = {
     ],
   },
 
+  // SYNC:BEGIN governanceCounts
   governanceCounts: {
     constraintsLocked: 23,
     decisionsLocked: 15,
     openQuestionsTotal: 10,
     resolvedQuestionsTotal: 9,
   },
+  // SYNC:END
 };
