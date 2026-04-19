@@ -11,6 +11,7 @@ import { presentationMarkdown } from './content';
 import RiskDashboard from './components/RiskDashboard';
 import AgentTraining from './components/AgentTraining';
 import MissionControl from './components/MissionControl';
+import { firmState } from './data/sankore-state';
 
 type ViewState = 'mission' | 'presentation' | 'risk' | 'training';
 
@@ -100,7 +101,7 @@ export default function App() {
             <span className="text-xs font-mono tracking-widest uppercase">Command Center</span>
           </div>
           <h1 className="text-xl font-bold tracking-tight leading-tight">Sankore Group</h1>
-          <p className="text-sm text-gray-500 mt-1">v2 — Phase 1g Opening</p>
+          <p className="text-sm text-gray-500 mt-1">v2 — {firmState.phase}</p>
         </div>
 
         <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-6">

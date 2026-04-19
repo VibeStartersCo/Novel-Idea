@@ -88,6 +88,22 @@ export default function MissionControl() {
   }, {});
   const tierOrder = ['T1', 'T2', 'T3', 'TK'];
 
+  // ACTIVE NOW — derive live view from synced state
+  const activeSprint = phase1g.sprints.find((s) => s.status === 'open');
+  const activeBlocks = activeSprint ? blockProgress[activeSprint.id] : null;
+  const blockKeys = activeBlocks ? Object.keys(activeBlocks).sort() : [];
+  const openBlock = activeBlocks
+    ? blockKeys.map((k) => ({ key: k, ...activeBlocks[k] })).find((b) => !b.closedAt)
+    : null;
+  const lastClose = activeBlocks
+    ? blockKeys
+        .map((k) => ({ key: k, ...activeBlocks[k] }))
+        .filter((b) => b.closedAt)
+        .pop()
+    : null;
+  const openCarryIns = hardCarryIns.filter((c) => c.status === 'OPEN');
+  const nearestCarryIn = openCarryIns.sort((a, b) => a.daysRemaining - b.daysRemaining)[0];
+
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       {/* Header */}
@@ -109,6 +125,84 @@ export default function MissionControl() {
           </span>
         </div>
       </div>
+
+      {/* ACTIVE NOW — live view of current sprint + block + nearest hard deadline */}
+      {activeSprint ? (
+        <div className="bg-gradient-to-r from-[#F27D26]/10 to-transparent border border-[#F27D26]/40 rounded-xl p-5">
+          <div className="flex items-start justify-between gap-4 flex-wrap">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-2 h-2 rounded-full bg-[#F27D26] animate-pulse"></div>
+                <span className="text-[#F27D26] font-mono uppercase tracking-widest text-xs">Active Now</span>
+              </div>
+              <div className="text-xl font-bold text-white">
+                {activeSprint.id} <span className="text-gray-400 font-normal text-sm">— {activeSprint.dept}</span>
+              </div>
+              <div className="text-sm text-gray-300 mt-1">{activeSprint.title}</div>
+              <div className="text-xs text-gray-500 mt-0.5">owner: {activeSprint.owner}</div>
+            </div>
+            <div className="text-right shrink-0">
+              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider">Current block</div>
+              {openBlock ? (
+                <div className="text-lg font-mono text-amber-400 font-bold">{openBlock.key.toUpperCase()} IN-FLIGHT</div>
+              ) : lastClose ? (
+                <div className="text-lg font-mono text-green-400 font-bold">{lastClose.key.toUpperCase()} ✓</div>
+              ) : (
+                <div className="text-lg font-mono text-gray-400">not started</div>
+              )}
+              {lastClose && (
+                <div className="text-[10px] font-mono text-gray-500 mt-0.5">last closed: {lastClose.closedAt}</div>
+              )}
+            </div>
+          </div>
+          {/* Block dots */}
+          {blockKeys.length > 0 && (
+            <div className="mt-3 flex gap-1.5">
+              {blockKeys.map((k) => {
+                const b = activeBlocks![k];
+                const closed = Boolean(b.closedAt);
+                const isOpen = openBlock?.key === k;
+                return (
+                  <div
+                    key={k}
+                    title={`${k.toUpperCase()} ${closed ? '✓ ' + b.closedAt : isOpen ? 'in-flight' : 'pending'}`}
+                    className={`flex-1 h-1.5 rounded-full ${
+                      closed ? 'bg-green-500/80' : isOpen ? 'bg-amber-400 animate-pulse' : 'bg-[#222]'
+                    }`}
+                  />
+                );
+              })}
+            </div>
+          )}
+          {/* Nearest hard deadline */}
+          {nearestCarryIn && (
+            <div className="mt-3 pt-3 border-t border-[#F27D26]/20 flex items-center gap-3">
+              <Zap size={14} className={nearestCarryIn.daysRemaining <= 7 ? 'text-amber-400' : 'text-gray-500'} />
+              <div className="flex-1 text-xs text-gray-400">
+                <span className="text-gray-300 font-medium">{nearestCarryIn.id}</span>: {nearestCarryIn.description}
+              </div>
+              <div
+                className={`font-mono text-sm font-bold ${
+                  nearestCarryIn.daysRemaining < 0
+                    ? 'text-red-400'
+                    : nearestCarryIn.daysRemaining <= 7
+                    ? 'text-amber-400'
+                    : 'text-gray-300'
+                }`}
+              >
+                {nearestCarryIn.daysRemaining < 0
+                  ? `${Math.abs(nearestCarryIn.daysRemaining)}d OVERDUE`
+                  : `${nearestCarryIn.daysRemaining}d`}
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 text-sm text-gray-500">
+          <span className="text-gray-400 font-mono uppercase tracking-wider text-xs mr-2">Between Sprints</span>
+          No sprint currently open — next in queue will surface here when spawned.
+        </div>
+      )}
 
       {/* Sync-status notice */}
       <div className="bg-amber-900/20 border border-amber-600/40 rounded-xl p-4">
