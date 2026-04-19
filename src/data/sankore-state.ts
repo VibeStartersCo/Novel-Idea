@@ -124,7 +124,7 @@ export const firmState: FirmState = {
   lastUpdated: '2026-04-18',
   // SYNC:END
   // SYNC:BEGIN phase
-  phase: 'Phase 1g — P1G-SCAN-01 in progress (4/9 readouts filed)',
+  phase: 'Phase 1g — P1G-SCAN-01 in progress (6/9 readouts filed)',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
   nextMilestone: 'P1G-SCAN-01 (8-department structural scan)',
