@@ -211,8 +211,9 @@ export const firmState: FirmState = {
         id: 'P1G-RES-01',
         dept: 'Research',
         title: 'Research Dept Charter + 18-persona pattern extraction from `virattt/ai-hedge-fund` + `TradingAgents`',
-        status: 'stub',
+        status: 'closed-passed',
         owner: 'TBD',
+        closeDate: '2026-04-19',
         summary: 'Research Dept Charter + 18-persona pattern extraction from `virattt/ai-hedge-fund` + `TradingAgents`',
       },
       {
