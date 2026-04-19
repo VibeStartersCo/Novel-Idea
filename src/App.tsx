@@ -185,8 +185,8 @@ export default function App() {
 
         <div className="p-4 border-t border-[#222] bg-[#0a0a0a]">
           <div className="bg-[#111] border border-[#222] rounded-lg p-3 text-xs text-gray-400 space-y-2">
-            <div className="flex items-center gap-2"><Calendar size={14} className="text-gray-500" /> Apr 18, 2026</div>
-            <div className="flex items-center gap-2"><Clock size={14} className="text-gray-500" /> Saturday</div>
+            <div className="flex items-center gap-2"><Calendar size={14} className="text-gray-500" /> {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+            <div className="flex items-center gap-2"><Clock size={14} className="text-gray-500" /> {new Date().toLocaleDateString('en-US', { weekday: 'long' })}</div>
             <div className="flex items-center gap-2"><User size={14} className="text-gray-500" /> Marcus (CEO)</div>
             <div className="flex items-center gap-2 text-green-500"><CheckCircle size={14} /> FOUNDATION GATE CLEARED</div>
           </div>

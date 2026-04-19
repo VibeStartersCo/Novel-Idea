@@ -9,6 +9,9 @@ import {
   FileText,
   HelpCircle,
   Lock,
+  Layers,
+  Zap,
+  Cpu,
 } from 'lucide-react';
 import { firmState, type Sprint, type Artifact } from '../data/sankore-state';
 
@@ -73,6 +76,10 @@ export default function MissionControl() {
     decisions,
     agentRoster,
     governanceCounts,
+    blockProgress,
+    hardCarryIns,
+    patternCatalog,
+    modelVersions,
   } = firmState;
 
   const groupedArtifacts = artifacts.reduce<Record<string, Artifact[]>>((acc, a) => {
@@ -103,20 +110,17 @@ export default function MissionControl() {
         </div>
       </div>
 
-      {/* Concept-view notice */}
+      {/* Sync-status notice */}
       <div className="bg-amber-900/20 border border-amber-600/40 rounded-xl p-4">
         <div className="flex items-start gap-3">
           <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
           <div>
             <div className="text-amber-400 font-mono uppercase tracking-wider text-xs mb-1">
-              Hand-curated snapshot
+              Commit-time sync (Option A) — Supabase-backed coming in Phase 2A
             </div>
             <p className="text-sm text-gray-300 leading-relaxed">
-              This surface is updated manually at CEO exit-gates and session debriefs. Live
-              Supabase wiring lands in Phase 2A. The <span className="text-gray-200 font-medium">Strategy Document</span>, <span className="text-gray-200 font-medium">Risk Dashboard</span>, and <span className="text-gray-200 font-medium">Agent Training Matrix</span> tabs below are{' '}
-              <span className="text-amber-300 font-medium">concept artifacts from the original
-              vision</span> — preserved unchanged, held for reactivation with live data once
-              the full firm is operational.
+              Every block auto-refreshes on each Sankore commit via <span className="text-gray-200 font-mono">scripts/sync_dashboard.py</span>: sprints, decisions, open/resolved questions, artifacts, agent roster, checkpoints, block-level progress, hard carry-ins, pattern nominations, and model-version ceiling. The <span className="text-gray-200 font-medium">Strategy Document</span>, <span className="text-gray-200 font-medium">Risk Dashboard</span>, and <span className="text-gray-200 font-medium">Agent Training Matrix</span> tabs below remain{' '}
+              <span className="text-amber-300 font-medium">concept artifacts</span> — preserved for reactivation with live Supabase data.
             </p>
           </div>
         </div>
@@ -366,7 +370,7 @@ export default function MissionControl() {
       {/* Section 6 — Decisions */}
       <section className="bg-[#111] border border-[#333] rounded-xl p-5">
         <h2 className="font-mono uppercase tracking-wider text-gray-400 text-sm mb-4 flex items-center gap-2">
-          <Clock size={16} className="text-[#F27D26]" /> Recent locked decisions
+          <Clock size={16} className="text-[#F27D26]" /> Recent locked decisions ({decisions.length})
         </h2>
         <div className="space-y-2">
           {decisions.slice(0, 8).map((d) => (
@@ -386,6 +390,151 @@ export default function MissionControl() {
               </span>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Section 7 — Block Progress (per sprint with block activity) */}
+      <section className="bg-[#111] border border-[#333] rounded-xl p-5">
+        <h2 className="font-mono uppercase tracking-wider text-gray-400 text-sm mb-4 flex items-center gap-2">
+          <Layers size={16} className="text-[#F27D26]" /> Block progress — {Object.keys(blockProgress).length} sprints with block activity
+        </h2>
+        <div className="space-y-3">
+          {Object.keys(blockProgress)
+            .sort()
+            .map((sprintId) => {
+              const blocks = blockProgress[sprintId];
+              const blockKeys = Object.keys(blocks).sort();
+              const closed = blockKeys.filter((k) => blocks[k].closedAt).length;
+              return (
+                <div key={sprintId} className="bg-[#0a0a0a] border border-[#222] rounded-lg p-3">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-mono text-sm text-white">{sprintId}</span>
+                    <span className="font-mono text-[10px] text-gray-500 uppercase tracking-wider">
+                      {closed} / {blockKeys.length} blocks closed
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                    {blockKeys.map((key) => {
+                      const b = blocks[key];
+                      const isClosed = Boolean(b.closedAt);
+                      return (
+                        <div
+                          key={key}
+                          className={`rounded px-2 py-1.5 border text-[10px] font-mono ${
+                            isClosed
+                              ? 'bg-green-500/10 border-green-500/30 text-green-400'
+                              : 'bg-amber-500/10 border-amber-500/30 text-amber-400'
+                          }`}
+                        >
+                          <div className="uppercase tracking-wider">{key}</div>
+                          <div className="text-[9px] text-gray-400 mt-0.5 truncate" title={b.file}>
+                            {b.file}
+                          </div>
+                          {b.closedAt && (
+                            <div className="text-[9px] text-gray-500 mt-0.5 truncate" title={b.closedAt}>
+                              ✓ {b.closedAt.split(' — ')[1] || b.closedAt}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+        </div>
+      </section>
+
+      {/* Section 8 — Hard Carry-Ins (deadlines with days-remaining countdown) */}
+      <section className="bg-[#111] border border-[#333] rounded-xl p-5">
+        <h2 className="font-mono uppercase tracking-wider text-gray-400 text-sm mb-4 flex items-center gap-2">
+          <Zap size={16} className="text-[#F27D26]" /> Hard carry-ins ({hardCarryIns.length})
+        </h2>
+        {hardCarryIns.length === 0 ? (
+          <div className="text-xs text-gray-500 font-mono">No open carry-ins.</div>
+        ) : (
+          <div className="space-y-2">
+            {hardCarryIns.map((c) => {
+              const urgent = c.daysRemaining <= 7;
+              const overdue = c.daysRemaining < 0;
+              return (
+                <div
+                  key={`${c.id}-${c.deadline}`}
+                  className={`rounded-lg p-3 border flex items-center gap-3 ${
+                    overdue
+                      ? 'bg-red-500/10 border-red-500/40'
+                      : urgent
+                      ? 'bg-amber-500/10 border-amber-500/40'
+                      : 'bg-[#0a0a0a] border-[#222]'
+                  }`}
+                >
+                  <span className="font-mono text-[10px] text-[#F27D26] uppercase tracking-widest shrink-0">
+                    {c.id}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <div className="text-sm text-white">{c.description}</div>
+                    <div className="text-[11px] font-mono text-gray-500 mt-0.5">
+                      sprint: <span className="text-gray-400">{c.blockingSprint}</span>
+                      {' · '}deadline: <span className="text-gray-400">{c.deadline}</span>
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div
+                      className={`font-mono text-xl font-bold ${
+                        overdue ? 'text-red-400' : urgent ? 'text-amber-400' : 'text-gray-300'
+                      }`}
+                    >
+                      {overdue ? `${Math.abs(c.daysRemaining)}d OVERDUE` : `${c.daysRemaining}d`}
+                    </div>
+                    <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider">
+                      {c.status}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </section>
+
+      {/* Section 9 — Model ceiling + canon lag */}
+      <section className="bg-[#111] border border-[#333] rounded-xl p-5">
+        <h2 className="font-mono uppercase tracking-wider text-gray-400 text-sm mb-4 flex items-center gap-2">
+          <Cpu size={16} className="text-[#F27D26]" /> Model ceiling
+        </h2>
+        <div className="bg-[#0a0a0a] border border-[#222] rounded-lg p-4">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0 flex-1">
+              <div className="text-xs font-mono text-gray-500 uppercase tracking-wider mb-1">
+                Current ceiling — landed {modelVersions.landedDate}
+              </div>
+              <div className="text-lg font-mono text-white font-semibold">
+                {modelVersions.currentCeiling}
+              </div>
+              <p className="text-xs text-gray-400 mt-2 leading-relaxed">{modelVersions.lagNote}</p>
+            </div>
+            <div className="text-right shrink-0">
+              <div className="text-[10px] font-mono text-gray-500 uppercase tracking-wider">
+                Canon refs lagging
+              </div>
+              <div
+                className={`text-3xl font-mono font-bold ${
+                  modelVersions.priorCeilingRefs > 0 ? 'text-amber-400' : 'text-green-400'
+                }`}
+              >
+                {modelVersions.priorCeilingRefs}
+              </div>
+            </div>
+          </div>
+          {patternCatalog.total > 0 && (
+            <div className="mt-3 pt-3 border-t border-[#222] text-[11px] font-mono text-gray-500">
+              pattern catalog: <span className="text-gray-300">{patternCatalog.total} patterns</span>
+              {' · '}
+              {patternCatalog.nominations.filter((n) => n.status === 'cataloged').length} cataloged
+              {' · '}
+              {patternCatalog.nominations.filter((n) => n.status === 'nominated').length} nominated
+            </div>
+          )}
         </div>
       </section>
     </div>
