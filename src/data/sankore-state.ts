@@ -124,10 +124,10 @@ export const firmState: FirmState = {
   lastUpdated: '2026-04-19',
   // SYNC:END
   // SYNC:BEGIN phase
-  phase: 'LIVE — MVP-Foundation CP1–4 CLOSED',
+  phase: 'Phase 1g — P1G-TRD-01 OPEN',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
-  nextMilestone: 'None',
+  nextMilestone: 'P1G-TRD-01 (Trading Desk dept deep-dive)',
   // SYNC:END
 
   mvpFoundation: {
@@ -183,7 +183,7 @@ export const firmState: FirmState = {
       {
         id: 'P1G-SCAN-01',
         dept: 'Cross-dept (scan)',
-        title: '8-department structural scan',
+        title: '8-dept structural scan',
         status: 'closed-passed',
         owner: 'Marcus (CEO, strategic) + Osei (Claude, structural coherence) — joint 1–2 session review',
         closeDate: '2026-04-18',
@@ -201,7 +201,7 @@ export const firmState: FirmState = {
       {
         id: 'P1G-AUD-01',
         dept: 'Audit',
-        title: 'hook note',
+        title: 'Audit dept deep-dive',
         status: 'closed-passed',
         owner: 'TBD',
         closeDate: '2026-04-19',
@@ -210,7 +210,7 @@ export const firmState: FirmState = {
       {
         id: 'P1G-RES-01',
         dept: 'Research',
-        title: 'Research Dept Charter + 18-persona pattern extraction from `virattt/ai-hedge-fund` + `TradingAgents`',
+        title: 'Research dept deep-dive',
         status: 'closed-passed',
         owner: 'TBD',
         closeDate: '2026-04-19',
@@ -219,15 +219,15 @@ export const firmState: FirmState = {
       {
         id: 'P1G-TRD-01',
         dept: 'Trading Desk',
-        title: 'Trading Dept Charter + execution-adapter selection from `Kraken CLI` + `Open-Finance/AgenticTrading`',
-        status: 'stub',
+        title: 'Trading Desk dept deep-dive',
+        status: 'open',
         owner: 'TBD',
         summary: 'Trading Dept Charter + execution-adapter selection from `Kraken CLI` + `Open-Finance/AgenticTrading`',
       },
       {
         id: 'P1G-RSK-01',
         dept: 'Risk & Performance',
-        title: 'Risk Dept Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
+        title: 'Risk Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
         status: 'stub',
         owner: 'TBD',
         summary: 'Risk Dept Charter + position-sizing backtest scaffold using `FinGPT` + `ATLAS`',
@@ -251,7 +251,7 @@ export const firmState: FirmState = {
       {
         id: 'P1G-COM-01',
         dept: 'Compliance & Legal',
-        title: 'Compliance Charter (Nkechi) + SEC readiness + F18 external-regulatory enforcement',
+        title: 'Compliance & Legal dept deep-dive',
         status: 'closed-passed',
         owner: 'TBD',
         closeDate: '2026-04-19',
