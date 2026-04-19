@@ -124,10 +124,10 @@ export const firmState: FirmState = {
   lastUpdated: '2026-04-18',
   // SYNC:END
   // SYNC:BEGIN phase
-  phase: 'LIVE — MVP-Foundation CP1–4 CLOSED + CEO-signed 2026-04-18',
+  phase: 'LIVE — MVP-Foundation CP1–4 CLOSED',
   // SYNC:END
   // SYNC:BEGIN nextMilestone
-  nextMilestone: 'P1G-SCAN-01 (8-department structural scan)',
+  nextMilestone: 'P1G-ENG-01 (Engineering dept deep-dive)',
   // SYNC:END
 
   mvpFoundation: {
@@ -184,8 +184,9 @@ export const firmState: FirmState = {
         id: 'P1G-SCAN-01',
         dept: 'Cross-dept (scan)',
         title: '8-department structural scan',
-        status: 'open',
+        status: 'closed-passed',
         owner: 'Marcus (CEO, strategic) + Osei (Claude, structural coherence) — joint 1–2 session review',
+        closeDate: '2026-04-18',
         summary: 'Inserted 2026-04-18 per CEO direction: before any Phase 1g dept deep-dive launches, run a cross-dept scan so each charter is written with inter-dept context, not in isolation. Pre-work already done: all 9 v1 dept-head...',
       },
       {
